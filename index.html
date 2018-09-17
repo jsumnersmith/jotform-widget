@@ -8,17 +8,26 @@
       <h3>This is my first widget.</h3>
       <span id="labelText"></span>
       <select id="userInput">
-        <option>School 1</option>
-        <option>School 2</option>
-        <option>School 3</option>
+        <option value="1">School 1</option>
+        <option value="2">School 2</option>
+        <option value="3">School 3</option>
       </select>
     </div>
+    <div id="configText"></div>
     <script type="text/javascript">
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
         JFCustomWidget.subscribe("ready", function(){
+            var query = new URLSearchParams(window.location.search);
+            if (query.has('initialValue')){
+              var initialValue = query.get('initialValue');
+              document.getElementById('userInput').value = initialValue;
+            }
+            console.log(document.getElementById('userInput').value)
+            console.log(JFCustomWidget.getWidgetSetting);
             var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
             document.getElementById('labelText').innerHTML = label;
+            document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('UserParameters');
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
                 var msg = {
@@ -31,6 +40,10 @@
                 JFCustomWidget.sendSubmit(msg);
             });
         });
+
+
+
+
     </script>
   </body>
 </html>
