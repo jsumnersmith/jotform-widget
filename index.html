@@ -28,6 +28,7 @@
             var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
             document.getElementById('labelText').innerHTML = label;
             document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('UserParameters');
+            console.log(JFCustomWidget.getWidgetSetting('UserParameters'));
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
                 var msg = {
