@@ -23,10 +23,7 @@
               var initialValue = query.get('initialValue');
               document.getElementById('userInput').value = initialValue;
             }
-            console.log(document.getElementById('userInput').value)
-            console.log(JFCustomWidget.getWidgetSetting);
-            var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
-            document.getElementById('labelText').innerHTML = label;
+            console.log(JFCustomWidget.getWidgetSetting());
             document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
