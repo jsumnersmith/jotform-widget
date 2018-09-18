@@ -5,7 +5,7 @@
   </head>
   <body>
     <div id="main">
-      <h3>This is my first widget.</h3>
+      <h3></h3>
       <span id="labelText"></span>
       <select id="userInput">
         <option value="1">School 1</option>
@@ -27,8 +27,7 @@
             console.log(JFCustomWidget.getWidgetSetting);
             var label = JFCustomWidget.getWidgetSetting('QuestionLabel');
             document.getElementById('labelText').innerHTML = label;
-            document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('UserParameters');
-            console.log(JFCustomWidget.getWidgetSetting('UserParameters'));
+            document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
                 var msg = {
