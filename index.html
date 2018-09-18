@@ -24,6 +24,7 @@
               document.getElementById('userInput').value = initialValue;
             }
             console.log("Widget Settings: ", JFCustomWidget.getWidgetSettings());
+            console.log("JFCustomWidget: ", JFCustomWidget);
             document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
