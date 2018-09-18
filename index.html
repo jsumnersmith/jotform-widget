@@ -23,7 +23,7 @@
               var initialValue = query.get('initialValue');
               document.getElementById('userInput').value = initialValue;
             }
-            console.log(JFCustomWidget.getWidgetSetting());
+            console.log("Widget Settings: ", JFCustomWidget.getWidgetSetting());
             document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
             //subscribe to form submit event
             JFCustomWidget.subscribe("submit", function(){
