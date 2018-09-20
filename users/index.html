@@ -33,7 +33,7 @@
               var data = JSON.parse(request.responseText);
               console.log(data);
               if (!group) {
-                users = Object.values(data).flatten();
+                users = Object.values(data).flat();
               } else {
                 users = data[group];
               }
