@@ -35,6 +35,7 @@
               } else {
                 users = data[group];
               }
+              console.log(users);
               callback(users);
 
             } else {
@@ -49,7 +50,7 @@
 
         function cleanseUsers(el){
           if (el.options.length) {
-            for (var i = 0, l = el.options.length; i < l; i++){
+            for (var i = 0, l = el.options.length; i <= l; i++){
               el.remove(i);
             };
           }
