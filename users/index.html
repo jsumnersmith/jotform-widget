@@ -21,15 +21,28 @@
     <script type="text/javascript">
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
+
+
         function getUsers(group, callback){
           var users = [];
-          var request = new XMLHttpRequest();
+
+          return fetch('users.json')
+            .then(function(response){
+              var data = JSON.parse(response);
+              if (group == "all") {
+                users = Object.values(data).flat();
+              } else {
+                users = data[group];
+              }
+              return(users);
+
+            }).then(callback);
+
+          /*var request = new XMLHttpRequest();
           request.open('GET', 'users.json', true);
           request.onload = function() {
             if (request.status >= 200 && request.status < 400) {
-              // Success!
               var data = JSON.parse(request.responseText);
-              console.log(data);
               if (group == "all") {
                 users = Object.values(data).flat();
               } else {
@@ -44,9 +57,8 @@
           };
           request.onerror = function() {
             console.error("Some connection went wrong");
-            // There was a connection error of some sort
           };
-          request.send();
+          request.send();*/
         }
 
         function renderSelect(el){
@@ -75,8 +87,6 @@
           var group = e.target.value;
           setUsers(group);
         }
-
-
 
         var groupSelect = document.getElementById('groupSelect');
         groupSelect.addEventListener("change", handleChange)
