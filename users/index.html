@@ -49,9 +49,9 @@
 
         function setUsers(group){
           getUsers(group, function(users){
-            var userSelect = document.getElementById('configText');
+            var userSelect = document.getElementById('userSelect');
             users.map(function(user){
-              usersSelect.option[usersSelect.options.length] = new Option(user, user);
+              userSelect.option[userSelect.options.length] = new Option(user, user);
             })
           })
         };
