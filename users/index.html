@@ -31,36 +31,9 @@
               return response.json();
             })
             .then(function(data){
-              console.log(data);
-              if (group == "all") {
-                users = Object.values(data).flat();
-              } else {
-                users = data[group];
-              }
+              users = group == "all" ? Object.values(data).flat() : data[group];
               callback(users);
             })
-
-          /*var request = new XMLHttpRequest();
-          request.open('GET', 'users.json', true);
-          request.onload = function() {
-            if (request.status >= 200 && request.status < 400) {
-              var data = JSON.parse(request.responseText);
-              if (group == "all") {
-                users = Object.values(data).flat();
-              } else {
-                users = data[group];
-              }
-              console.log(users);
-              callback(users);
-
-            } else {
-              console.error("Something went wrong");
-            }
-          };
-          request.onerror = function() {
-            console.error("Some connection went wrong");
-          };
-          request.send();*/
         }
 
         function renderSelect(el){
