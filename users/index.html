@@ -16,7 +16,6 @@
       <select id="userSelect" disabled>
       </select>
       <span id="lastChild"></span>
-
     </div>
     <div id="configText"></div>
     <script type="text/javascript">
@@ -31,8 +30,8 @@
               // Success!
               var data = JSON.parse(request.responseText);
               console.log(data);
-              if (!group) {
-                users = Object.values(data);
+              if (group == "all") {
+                users = Object.values(data).flat();
               } else {
                 users = data[group];
               }
