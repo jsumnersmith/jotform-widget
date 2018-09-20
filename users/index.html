@@ -49,8 +49,8 @@
 
         function cleanseUsers(el){
           if (el.options.length) {
-            el.options.map(function(option, index){
-              el.remove(index);
+            for (var i = 0, l = el.options.length; i < l; i++){
+              el.remove(i);
             });
           }
           return el;
