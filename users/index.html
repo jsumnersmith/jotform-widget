@@ -47,10 +47,16 @@
           request.send();
         }
 
+        function removeUsers(el){
+          el.options.map(option, index){
+            el.remove(index);
+          }
+        }
+
         function setUsers(group){
           getUsers(group, function(users){
             var userSelect = document.getElementById('userSelect');
-            userSelect.options = []
+            removeUsers(userSelect);
             users.map(function(user){
               userSelect.options[userSelect.options.length] = new Option(user, user);
             })
