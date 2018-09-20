@@ -14,6 +14,7 @@
       </select>
       <label id="groupLabelText">Select a User</label>
       <select id="userSelect" disabled>
+      <div id="lastChild"></div>
 
       </select>
     </div>
@@ -51,12 +52,12 @@
 
         function renderSelect(el){
           var parent = el.parentNode;
-          var label = document.getElementById('groupLabelText');
+          var sibling = document.getElementById('lastChild');
           parent.removeChild(el);
 
           el = document.createElement('select');
           el.setAttribute('id', 'userSelect');
-          parent.insertBefore(el, label.nextSibling);
+          parent.insertBefore(el, sibling);
           return el;
         }
 
