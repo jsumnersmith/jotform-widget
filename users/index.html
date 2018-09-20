@@ -37,6 +37,8 @@
               } else {
                 users = data[group];
               }
+              console.log(users);
+
             } else {
               console.error("Something went wrong");
             }
@@ -45,7 +47,6 @@
             // There was a connection error of some sort
           };
           request.send();
-          console.log(users);
         }
 
         console.log("I'm doing something . . . ");
