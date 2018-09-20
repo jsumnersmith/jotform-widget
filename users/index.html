@@ -53,10 +53,17 @@
             users.map(function(user){
               userSelect.options[userSelect.options.length] = new Option(user, user);
             })
+            userSelect.disabled = false;
           })
         };
 
-        setUsers("teachers");
+        function handleChange(e){
+          var group = e.target.value;
+          setUsers(group);
+        }
+
+        var groupSelect = document.getElementById('groupSelect');
+        groupSelect.addEventListener("change", handleChange)
 
         /*JFCustomWidget.subscribe("ready", function(){
             var query = new URLSearchParams(window.location.search);
