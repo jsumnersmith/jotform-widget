@@ -50,6 +50,7 @@
         function setUsers(group){
           getUsers(group, function(users){
             var userSelect = document.getElementById('userSelect');
+            userSelect.options = []
             users.map(function(user){
               userSelect.options[userSelect.options.length] = new Option(user, user);
             })
@@ -61,6 +62,8 @@
           var group = e.target.value;
           setUsers(group);
         }
+
+
 
         var groupSelect = document.getElementById('groupSelect');
         groupSelect.addEventListener("change", handleChange)
