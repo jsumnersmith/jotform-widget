@@ -28,6 +28,7 @@
 
           return fetch('users.json')
             .then(function(response){
+              console.log(response);
               var data = JSON.parse(response);
               if (group == "all") {
                 users = Object.values(data).flat();
