@@ -14,16 +14,14 @@
       </select>
       <label id="groupLabelText">Select a User</label>
       <select id="userSelect" disabled>
-        <option value="1">School 1</option>
-        <option value="2">School 2</option>
-        <option value="3">School 4</option>
+
       </select>
     </div>
     <div id="configText"></div>
     <script type="text/javascript">
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
-        function getUsers(group){
+        function getUsers(group, callback){
           var users = [];
           var request = new XMLHttpRequest();
           request.open('GET', 'users.json', true);
@@ -37,7 +35,7 @@
               } else {
                 users = data[group];
               }
-              console.log(users);
+              callback(users);
 
             } else {
               console.error("Something went wrong");
@@ -49,10 +47,16 @@
           request.send();
         }
 
-        console.log("I'm doing something . . . ");
-        getUsers();
-        getUsers("teachers");
+        function setUsers(group){
+          getUsers(group, function(users){
+            var userSelect = document.getElementById('configText');
+            users.map(function(user){
+              usersSelect.option[usersSelect.options.length] = new Option(user, user);
+            })
+          })
+        };
 
+        setUsers("teachers");
 
         /*JFCustomWidget.subscribe("ready", function(){
             var query = new URLSearchParams(window.location.search);
