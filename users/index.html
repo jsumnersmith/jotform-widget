@@ -43,24 +43,25 @@
             }
           };
           request.onerror = function() {
+            console.error("Some connection went wrong");
             // There was a connection error of some sort
           };
           request.send();
         }
 
-        function cleanseUsers(el){
-          if (el.options.length) {
-            for (var i = 0, l = el.options.length; i <= l; i++){
-              el.remove(i);
-            };
-          }
+        function renderSelect(el){
+          var parent = el.parent;
+          parent.removeChild(el);
+
+          el = document.createElement('select');
+          el.setAttribute('id', 'userSelect');
           return el;
         }
 
         function setUsers(group){
           getUsers(group, function(users){
             var userSelect = document.getElementById('userSelect');
-            userSelect = cleanseUsers(userSelect);
+            userSelect = renderSelect(userSelect);
             users.map(function(user){
               userSelect.options[userSelect.options.length] = new Option(user, user);
             })
