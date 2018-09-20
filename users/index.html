@@ -28,16 +28,17 @@
 
           return fetch('users.json')
             .then(function(response){
-              console.log(response.json());
+              return response.json();
+            })
+            .then(function(data){
               var data = JSON.parse(response.json());
               if (group == "all") {
                 users = Object.values(data).flat();
               } else {
                 users = data[group];
               }
-              return(users);
-
-            }).then(callback);
+              callback(users);
+            })
 
           /*var request = new XMLHttpRequest();
           request.open('GET', 'users.json', true);
