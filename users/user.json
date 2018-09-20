@@ -1,0 +1,16 @@
+{
+  "teachers": [
+    "Joel Smith",
+    "Bella Smith",
+    "Daniel Tiger"
+  ],
+  "coaches": [
+    "Phil Mickelson",
+    "Jordan Spieth",
+    "Dustin Johnson"
+  ],
+  "admin": [
+    "Marie Curie",
+    "Albert Einstein"
+  ]
+}
