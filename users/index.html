@@ -31,7 +31,7 @@
               return response.json();
             })
             .then(function(data){
-              var data = JSON.parse(response.json());
+              data = JSON.parse(data);
               if (group == "all") {
                 users = Object.values(data).flat();
               } else {
