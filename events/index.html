@@ -36,13 +36,15 @@
         })
       };
 
+      console.log("I can send messages");
       JFCustomWidget.subscribe("ready", function(){
+        console.log("I'm at least ready.")
         setEvents();
-
+        console.log(document.getElementById('eventSelect').value);
         JFCustomWidget.subscribe("submit", function(){
           var msg = {
-              valid: true,
-              value: document.getElementById('eventSelect').value
+            valid: true,
+            value: document.getElementById('eventSelect').value
           }
           JFCustomWidget.sendSubmit(msg);
         });
