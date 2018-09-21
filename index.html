@@ -2,18 +2,19 @@
 <html>
   <head>
     <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900" rel="stylesheet">
+    <link href="form.css" rel="stylesheet">
   </head>
   <body>
-    <div id="main">
-      <h3></h3>
-      <label id="labelText">Select a School</label>
-      <select id="userInput">
-        <option value="1">School 1</option>
-        <option value="2">School 2</option>
-        <option value="3">School 3</option>
-      </select>
+    <div class="container">
+      <div class="wrapper">
+        <h3>Select a use case</h3>
+        <div>👥 <a href="users/">Users</a></div>
+        <div>📆 <a href="events/">Events</a></div>
+        <div>🗂 <a href="attributes/">Attributes</a></div>
+      </div>
+      <div id="configText"></div>
     </div>
-    <div id="configText"></div>
     <script type="text/javascript">
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
