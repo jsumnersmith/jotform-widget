@@ -36,17 +36,19 @@
       };
 
       JFCustomWidget.subscribe("ready", function(){
-        setEvents();
-        console.log("I'm ready");
-        JFCustomWidget.subscribe("submit", function(){
-          console.log("I'm ready to submit.");
-          var msg = {
-            valid: true,
-            value: "hello"
-          }
-          JFCustomWidget.sendSubmit(document.getElementById('eventSelect').value);
+            console.log(document.getElementById('eventSelect').value);
+            //subscribe to form submit event
+            JFCustomWidget.subscribe("submit", function(){
+                var msg = {
+                    //you should valid attribute to data for JotForm
+                    //to be able to use youw widget as required
+                    valid: true,
+                    value: document.getElementById('eventSelect').value
+                }
+                // send value to JotForm
+                JFCustomWidget.sendSubmit(msg);
+            });
         });
-      });
     </script>
   </body>
 </html>
