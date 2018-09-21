@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--<script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>-->
+    <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900" rel="stylesheet">
     <link href="../form.css" rel="stylesheet">
   </head>
@@ -17,62 +17,44 @@
       <div id="configText"></div>
     </div>
     <script type="text/javascript">
-        //always subscribe to ready event and implement widget related code
-        //inside callback function , it is the best practice while developing widgets
-
-
-        function getAttributeValues(callback){
-          var attributeType = 'schools';
-          var query = new URLSearchParams(window.location.search);
-          if (query.has('attributeType')){
-            attributeType = query.get('attributeType');
-          }
-
-          return fetch('attributes.json')
-            .then(function(response){
-              return response.json();
-            })
-            .then(function(data){
-              callback(data[attributeType]);
-            })
+      function getAttributeValues(callback){
+        var attributeType = 'schools';
+        var query = new URLSearchParams(window.location.search);
+        if (query.has('attributeType')){
+          attributeType = query.get('attributeType');
         }
 
-        function setAttributeValues(){
-          getAttributeValues(function(values){
-            console.log("values are", values);
-            var attributeSelect = document.getElementById('attributeSelect');
-            values.map(function(value){
-              attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
-            })
-            attributeSelect.disabled = false;
+        return fetch('attributes.json')
+          .then(function(response){
+            return response.json();
           })
-        };
+          .then(function(data){
+            callback(data[attributeType]);
+          })
+      }
 
+      function setAttributeValues(){
+        getAttributeValues(function(values){
+          console.log("values are", values);
+          var attributeSelect = document.getElementById('attributeSelect');
+          values.map(function(value){
+            attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
+          })
+          attributeSelect.disabled = false;
+        })
+      };
+
+      JFCustomWidget.subscribe("ready", function(){
         setAttributeValues();
 
-        /*JFCustomWidget.subscribe("ready", function(){
-            var query = new URLSearchParams(window.location.search);
-            if (query.has('initialValue')){
-              var initialValue = query.get('initialValue');
-              document.getElementById('userInput').value = initialValue;
-            }
-            console.log("Widget Settings: ", JFCustomWidget.getWidgetSettings());
-            console.log("JFCustomWidget: ", JFCustomWidget);
-            document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
-            //subscribe to form submit event
-            JFCustomWidget.subscribe("submit", function(){
-                var msg = {
-                    //you should valid attribute to data for JotForm
-                    //to be able to use youw widget as required
-                    valid: true,
-                    value: document.getElementById('userInput').value
-                }
-                // send value to JotForm
-                JFCustomWidget.sendSubmit(msg);
-            });
-        }); */
-
-
+        JFCustomWidget.subscribe("submit", function(){
+          var msg = {
+            valid: true,
+            value: document.getElementById('attributeSelect').value
+          }
+          JFCustomWidget.sendSubmit(msg);
+        });
+      });
     </script>
   </body>
 </html>

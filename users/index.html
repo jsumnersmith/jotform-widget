@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--<script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>-->
+    <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900" rel="stylesheet">
     <link href="../form.css" rel="stylesheet">
   </head>
@@ -23,78 +23,62 @@
       </div>
       <div id="configText"></div>
     </div>
+
     <script type="text/javascript">
-        //always subscribe to ready event and implement widget related code
-        //inside callback function , it is the best practice while developing widgets
+      function getUsers(group, callback){
+        var users = [];
 
-
-        function getUsers(group, callback){
-          var users = [];
-
-          return fetch('users.json')
-            .then(function(response){
-              return response.json();
-            })
-            .then(function(data){
-              users = group == "all" ? Object.values(data).flat() : data[group];
-              callback(users);
-            })
-        }
-
-        function renderSelect(el){
-          var parent = el.parentNode;
-          var sibling = document.getElementById('lastChild');
-          parent.removeChild(el);
-
-          el = document.createElement('select');
-          el.setAttribute('id', 'userSelect');
-          parent.insertBefore(el, sibling);
-
-          return el;
-        }
-
-        function setUsers(group){
-          getUsers(group, function(users){
-            var userSelect = document.getElementById('userSelect');
-            userSelect = renderSelect(userSelect);
-            users.map(function(user){
-              userSelect.options[userSelect.options.length] = new Option(user, user);
-            })
-            userSelect.disabled = false;
+        return fetch('users.json')
+          .then(function(response){
+            return response.json();
           })
-        };
+          .then(function(data){
+            users = group == "all" ? Object.values(data).flat() : data[group];
+            callback(users);
+          })
+      }
 
-        function handleChange(e){
-          var group = e.target.value;
-          setUsers(group);
-        }
+      function renderSelect(el){
+        var parent = el.parentNode;
+        var sibling = document.getElementById('lastChild');
+        parent.removeChild(el);
 
+        el = document.createElement('select');
+        el.setAttribute('id', 'userSelect');
+        parent.insertBefore(el, sibling);
+
+        return el;
+      }
+
+      function setUsers(group){
+        getUsers(group, function(users){
+          var userSelect = document.getElementById('userSelect');
+          userSelect = renderSelect(userSelect);
+          users.map(function(user){
+            userSelect.options[userSelect.options.length] = new Option(user, user);
+          })
+          userSelect.disabled = false;
+        })
+      };
+
+      function handleChange(e){
+        var group = e.target.value;
+        setUsers(group);
+      }
+
+      JFCustomWidget.subscribe("ready", function(){
+        //Instatiate Handlers
         var groupSelect = document.getElementById('groupSelect');
-        groupSelect.addEventListener("change", handleChange)
+        groupSelect.addEventListener("change", handleChange);
 
-        /*JFCustomWidget.subscribe("ready", function(){
-            var query = new URLSearchParams(window.location.search);
-            if (query.has('initialValue')){
-              var initialValue = query.get('initialValue');
-              document.getElementById('userInput').value = initialValue;
-            }
-            console.log("Widget Settings: ", JFCustomWidget.getWidgetSettings());
-            console.log("JFCustomWidget: ", JFCustomWidget);
-            document.getElementById('configText').innerHTML = JFCustomWidget.getWidgetSetting('districtId');
-            //subscribe to form submit event
-            JFCustomWidget.subscribe("submit", function(){
-                var msg = {
-                    //you should valid attribute to data for JotForm
-                    //to be able to use youw widget as required
-                    valid: true,
-                    value: document.getElementById('userInput').value
-                }
-                // send value to JotForm
-                JFCustomWidget.sendSubmit(msg);
-            });
-        }); */
-
-
+        JFCustomWidget.subscribe("submit", function(){
+          var msg = {
+            valid: true,
+            value: document.getElementById('userSelect').value
+          }
+          JFCustomWidget.sendSubmit(msg);
+        });
+      });
     </script>
   </body>
 </html>
