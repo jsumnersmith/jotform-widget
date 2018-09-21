@@ -39,7 +39,7 @@
         }
 
         function setAttributeValues(){
-          getAttributeValues(function(users){
+          getAttributeValues(function(values){
             var attributeSelect = document.getElementById('attributeSelect');
             values.map(function(value){
               attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
