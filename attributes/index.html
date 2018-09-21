@@ -40,6 +40,7 @@
 
         function setAttributeValues(){
           getAttributeValues(function(values){
+            console.log("values are", values);
             var attributeSelect = document.getElementById('attributeSelect');
             values.map(function(value){
               attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
