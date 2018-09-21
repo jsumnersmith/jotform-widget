@@ -16,31 +16,30 @@
       <div id="configText"></div>
     </div>
     <script type="text/javascript">
-        //always subscribe to ready event and implement widget related code
-        //inside callback function , it is the best practice while developing widgets
+      //always subscribe to ready event and implement widget related code
+      //inside callback function , it is the best practice while developing widgets
 
-        function getEvents(callback){
-          return fetch('events.json')
-            .then(function(response){
-              return response.json();
-            })
-            .then(function(events){
-              callback(events);
-            })
-        }
-
-
-        function setEvents(){
-          getEvents(function(events){
-            var eventSelect = document.getElementById('eventSelect');
-            events.map(function(event){
-              eventSelect.options[eventSelect.options.length] = new Option(event, event);
-            })
-            eventSelect.disabled = false;
+      function getEvents(callback){
+        return fetch('events.json')
+          .then(function(response){
+            return response.json();
           })
-        };
+          .then(function(events){
+            callback(events);
+          })
+      }
 
-        setEvents();
+      function setEvents(){
+        getEvents(function(events){
+          var eventSelect = document.getElementById('eventSelect');
+          events.map(function(event){
+            eventSelect.options[eventSelect.options.length] = new Option(event, event);
+          })
+          eventSelect.disabled = false;
+        })
+      };
+
+      setEvents();
 
 
         /*JFCustomWidget.subscribe("ready", function(){

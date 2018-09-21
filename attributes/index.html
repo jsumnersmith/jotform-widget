@@ -1,23 +1,58 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>
+    <!--<script src="//js.jotform.com/JotFormCustomWidget.min.js"></script>-->
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700,800,900" rel="stylesheet">
+    <link href="../form.css" rel="stylesheet">
   </head>
   <body>
-    <div id="main">
-      <h3></h3>
-      <label id="labelText">Select a School</label>
-      <select id="userInput">
-        <option value="1">School 1</option>
-        <option value="2">School 2</option>
-        <option value="3">School 3</option>
-      </select>
+    <div class="container">
+      <div class="wrapper">
+        <h3>Select which attribute applies to you</h3>
+        <label id="groupLabelText">Select a value</label>
+        <select id="attributeSelect">
+        </select>
+        <code>To change the attribute type, add attributeType=[schools/grades/roles] to the query string of the url.</code>
+      </div>
+      <div id="configText"></div>
     </div>
-    <div id="configText"></div>
     <script type="text/javascript">
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
-        JFCustomWidget.subscribe("ready", function(){
+
+        function getAttributeType(){
+          var attributeType = 'schools';
+          var query = new URLSearchParams(window.location.search);
+          if (query.has('attributeType')){
+            attributeType = query.get('initialValue');
+          }
+          return attributeType;
+        }
+
+        function getAttributeValues(group, callback){
+          var attributeType = getAttributeType();
+          var users = [];
+
+          return fetch('users.json')
+            .then(function(response){
+              return response.json();
+            })
+            .then(function(data){
+              callback(data[attributeType];);
+            })
+        }
+
+        function setAttributeValues(){
+          getAttributeValues(function(users){
+            var attributeSelect = document.getElementById('attributeSelect');
+            values.map(function(value){
+              attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
+            })
+            attributeSelect.disabled = false;
+          })
+        };
+
+        /*JFCustomWidget.subscribe("ready", function(){
             var query = new URLSearchParams(window.location.search);
             if (query.has('initialValue')){
               var initialValue = query.get('initialValue');
@@ -37,9 +72,7 @@
                 // send value to JotForm
                 JFCustomWidget.sendSubmit(msg);
             });
-        });
-
-
+        }); */
 
 
     </script>

@@ -1,0 +1,19 @@
+{
+  "schools": [
+    "East HS",
+    "West HS",
+    "North ES"
+  ],
+  "grades": [
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "roles": [
+    "English",
+    "Chemistry",
+    "Spanish",
+    "Latin"
+  ]
+}
