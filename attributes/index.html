@@ -20,17 +20,13 @@
         //always subscribe to ready event and implement widget related code
         //inside callback function , it is the best practice while developing widgets
 
-        function getAttributeType(){
+
+        function getAttributeValues(group, callback){
           var attributeType = 'schools';
           var query = new URLSearchParams(window.location.search);
           if (query.has('attributeType')){
             attributeType = query.get('initialValue');
           }
-          return attributeType;
-        }
-
-        function getAttributeValues(group, callback){
-          var attributeType = getAttributeType();
           var users = [];
 
           return fetch('attributes.json')
@@ -51,6 +47,8 @@
             attributeSelect.disabled = false;
           })
         };
+
+        setAttributeValues();
 
         /*JFCustomWidget.subscribe("ready", function(){
             var query = new URLSearchParams(window.location.search);
