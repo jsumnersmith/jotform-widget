@@ -37,7 +37,9 @@
 
       JFCustomWidget.subscribe("ready", function(){
         setEvents();
+        console.log("I'm ready");
         JFCustomWidget.subscribe("submit", function(){
+          console.log("I'm ready to submit.");
           var msg = {
             valid: true,
             value: "hello"
