@@ -8,7 +8,6 @@
   <body>
     <div class="container">
       <div class="wrapper">
-        <h3>Select which Event you Attended</h3>
         <label id="groupLabelText">Select an Event</label>
         <select id="eventSelect" disabled>
         </select>
@@ -36,19 +35,16 @@
         })
       };
 
-      console.log("I can send messages");
-      /*JFCustomWidget.subscribe("ready", function(){
-        console.log("I'm at least ready.")
-        //setEvents();
-        console.log(document.getElementById('eventSelect').value);
-        /*JFCustomWidget.subscribe("submit", function(){
+      JFCustomWidget.subscribe("ready", function(){
+        setEvents();
+        JFCustomWidget.subscribe("submit", function(){
           var msg = {
             valid: true,
             value: "hello"
           }
-          JFCustomWidget.sendSubmit(msg);
+          JFCustomWidget.sendSubmit(document.getElementById('eventSelect').value);
         });
-      });*/
+      });
     </script>
   </body>
 </html>
