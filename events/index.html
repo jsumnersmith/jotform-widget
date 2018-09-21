@@ -31,7 +31,7 @@
 
 
         function setEvents(){
-          getUsers(function(events){
+          getEvents(function(events){
             var eventSelect = document.getElementById('eventSelect');
             events.map(function(event){
               eventSelect.options[eventSelect.options.length] = new Option(event, event);
