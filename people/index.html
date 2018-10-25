@@ -8,14 +8,7 @@
   <body>
     <div class="container">
       <div class="wrapper">
-        <h3>Select a User to Observe</h3>
-        <label id="groupLabelText">Select a Group</label>
-        <select id="groupSelect">
-          <option value="all">All Users</option>
-          <option value="teachers">Teachers</option>
-          <option value="coaches">Coaches</option>
-          <option value="admins">Administrators</option>
-        </select>
+        <h3>Select a Person from your Organization</h3>
         <label id="groupLabelText">Select a User</label>
         <select id="userSelect" disabled>
         </select>
@@ -25,17 +18,18 @@
     </div>
 
     <script type="text/javascript">
-      function getUsers(group, callback){
-        var users = [];
-
-        return fetch('users.json')
-          .then(function(response){
-            return response.json();
-          })
-          .then(function(data){
-            users = group == "all" ? Object.values(data).flat() : data[group];
-            callback(users);
-          })
+      function getUsers(callback){
+        var users = [
+          "Joel Smith",
+          "Bella Smith",
+          "Daniel Tiger",
+          "Phil Mickelson",
+          "Jordan Spieth",
+          "Dustin Johnson",
+          "Marie Curie",
+          "Albert Einstein"
+        ];
+        callback(users);
       }
 
       function renderSelect(el){
@@ -50,8 +44,8 @@
         return el;
       }
 
-      function setUsers(group){
-        getUsers(group, function(users){
+      function setUsers(){
+        getUsers(function(users){
           var userSelect = document.getElementById('userSelect');
           userSelect = renderSelect(userSelect);
           users.map(function(user){
@@ -65,6 +59,9 @@
         var group = e.target.value;
         setUsers(group);
       }
+
+      // Move to insde 'ready' function.
+      setUsers();
 
       JFCustomWidget.subscribe("ready", function(){
         //Instatiate Handlers

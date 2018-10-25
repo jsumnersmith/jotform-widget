@@ -16,13 +16,13 @@
     </div>
     <script type="text/javascript">
       function getEvents(callback){
-        return fetch('events.json')
-          .then(function(response){
-            return response.json();
-          })
-          .then(function(events){
-            callback(events);
-          })
+        var events = [
+          "Training Day 1",
+          "PD Day 2",
+          "Coaching Session 13",
+          "PLC Day"
+        ];
+        callback(events);
       }
 
       function setEvents(){

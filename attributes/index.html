@@ -8,35 +8,73 @@
   <body>
     <div class="container">
       <div class="wrapper">
-        <h3>Select which attribute applies to you</h3>
-        <label id="groupLabelText">Select a value</label>
-        <select id="attributeSelect" style="margin-bottom: 10px;">
+        <h3>Find Entities by Attribute</h3>
+        <label id="groupLabelText">Select a attribute type</label>
+        <select id="attributeTypeSelect" style="margin-bottom: 10px;">
+          <option value="schools">School</option>
+          <option value="grades">Grades</option>
+          <option value="roles">Roles</option>
         </select>
+        <label id="groupLabelText">Select a attribute value</label>
+        <select id="attributeValueSelect" style="margin-bottom: 10px;">
+        </select>
+        <div id="lastChild" ></div>
+        <div  style="margin: 10px 0;">
+          <label id="groupLabelText">Search Items</label>
+          <input id="user-search" placeholder="Search for items that match your filter selections"/>
+        </div>
         <code>To change the attribute type, add attributeType=[schools/grades/roles] to the query string of the url.</code>
       </div>
       <div id="configText"></div>
     </div>
     <script type="text/javascript">
-      function getAttributeValues(callback){
-        var attributeType = 'schools';
+      var attributes = {
+        "schools": [
+          "East HS",
+          "West HS",
+          "North ES"
+        ],
+        "grades": [
+          "9",
+          "10",
+          "11",
+          "12"
+        ],
+        "roles": [
+          "English",
+          "Chemistry",
+          "Spanish",
+          "Latin"
+        ]
+      }
+
+      function getAttributeValues(attributeType, callback){
+        if (!attributeType) { attributeType = document.getElementById('attributeTypeSelect').value; }
         var query = new URLSearchParams(window.location.search);
         if (query.has('attributeType')){
           attributeType = query.get('attributeType');
         }
 
-        return fetch('attributes.json')
-          .then(function(response){
-            return response.json();
-          })
-          .then(function(data){
-            callback(data[attributeType]);
-          })
+        callback(attributes[attributeType]);
       }
 
-      function setAttributeValues(){
-        getAttributeValues(function(values){
+      function renderSelect(el){
+        var parent = el.parentNode;
+        var sibling = document.getElementById('lastChild');
+        parent.removeChild(el);
+
+        el = document.createElement('select');
+        el.setAttribute('id', 'attributeValueSelect');
+        parent.insertBefore(el, sibling);
+
+        return el;
+      }
+
+      function setAttributeValues(attributeType){
+        getAttributeValues(attributeType, function(values){
           console.log("values are", values);
-          var attributeSelect = document.getElementById('attributeSelect');
+          var attributeSelect = document.getElementById('attributeValueSelect');
+          attributeSelect = renderSelect(attributeSelect);
           values.map(function(value){
             attributeSelect.options[attributeSelect.options.length] = new Option(value, value);
           })
@@ -44,13 +82,24 @@
         })
       };
 
+      function handleChange(e){
+        console.log(e.target.value);
+        setAttributeValues(e.target.value);
+      }
+
+      //Should be inside.
+      setAttributeValues();
+
+      var attributeTypeSelect = document.getElementById('attributeTypeSelect');
+      attributeTypeSelect.addEventListener("change", handleChange);
+
       JFCustomWidget.subscribe("ready", function(){
         setAttributeValues();
 
         JFCustomWidget.subscribe("submit", function(){
           var msg = {
             valid: true,
-            value: document.getElementById('attributeSelect').value
+            value: document.getElementById('attributeValueSelect').value
           }
           JFCustomWidget.sendSubmit(msg);
         });
